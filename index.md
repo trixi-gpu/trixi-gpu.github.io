@@ -24,7 +24,9 @@ Trixi-GPU offers GPU acceleration for solving hyperbolic PDEs. The core solvers 
 </div>
 ~~~
 
-### ODE and PDE GPU acceleration
+Minimizing large and frequent data transfers between the CPU and GPU is crucial for accelerating large programs. To reduce transfer overhead, initial values and large parameters are initialized and kept on the GPU throughout the solving process. Additionally, GPU-specific interfaces and custom kernels are implemented to speed up data initialization and processing.
+
+### ODE and PDE Acceleration
 
 ~~~
 <div class="row">
@@ -34,6 +36,8 @@ Trixi-GPU offers GPU acceleration for solving hyperbolic PDEs. The core solvers 
   </div>
 </div>
 ~~~
+
+The overall GPU acceleration relies on two parts: (1) ODE acceleration using standard kernels from the package, and (2) PDE-specific acceleration, focusing on semidiscretization, implemented with custom kernels. With custom kernels, specialized optimizations focused on memory access and algorithms can be applied to achieve further speedup.
 
 ### Smediscretization on GPU
 
@@ -46,4 +50,11 @@ Trixi-GPU offers GPU acceleration for solving hyperbolic PDEs. The core solvers 
 </div>
 ~~~
 
+Semidiscretization is a key part of acceleration due to its potential for full parallelization and the weak data dependencies between some functionalities. Thus, running it on the GPU with pipelined streams is an effective approach to achieving high speedup. But some data dependencies force certain functionalities to remain sequential, making it hard to achieve more intensive pipelining.
+
 ## New section
+
+
+## Acknowledgments
+
+Thanks to our developers, maintainers, and outside contributors for their contributions to our community.

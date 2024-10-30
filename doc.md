@@ -60,8 +60,3 @@ GPU support requires type stability of `Float32` to achieve better performance. 
 *April 2, 2023* \
 [PDF - Matrix-Vector Representation](/assets/files/vector_matrix.pdf)  \
 [GitHub Repository - Linear Advection CUDA](https://github.com/huiyuxie/linear_advection_cuda)
-
-
-## Acknowledgments
-
-Thanks to our developers, maintainers, and outside contributors for their contributions to our community.
