@@ -1,0 +1,60 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/libs/highlight/styles/github.min.css"> <link rel=stylesheet  href="/css/franklin.css"> <link rel=stylesheet  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic|Source+Code+Pro:400,700" type="text/css"> <link rel=stylesheet  href="/css/font-awesome.min.css"> <link rel=stylesheet  href="/css/celeste.min.css"> <link rel=icon  type="image/png" sizes=192x192  href="/assets/favicon.png"> <link rel="shortcut icon" href="/assets/favicon.ico"> <link rel=apple-touch-icon-precomposed  sizes=152x152  href="/assets/apple-touch-icon.png"> <title>Setup a Cloud GPU for Running CUDA.jl</title> <header> <nav class=nav-main > <ul> <a class=hvr-underline-reveal  href="/" style="margin-top: 15px; margin-right: 15px"> <img src="/assets/favicon.png" alt=Logo  style="height: 45px; width: 45px"> </a> <li class=hvr-underline-reveal ><a href="/">Home</a> <li class=hvr-underline-reveal ><a href="/doc/">Doc</a> <li class=hvr-underline-reveal ><a href="/tutorial/">Tutorial</a> <li class=hvr-underline-reveal ><a href="/blog/">Blog</a> </ul> </nav> </header> <div class=franklin-content ><h1 id=setup_a_cloud_gpu_for_running_cudajl ><a href="#setup_a_cloud_gpu_for_running_cudajl" class=header-anchor >Setup a Cloud GPU for Running CUDA.jl</a></h1> <p>This tutorial will guide you through setting up a cloud GPU for running CUDA.jl. Since the author is familiar with the AWS cloud platform, we use it as our example for illustration. The process is similar across other cloud platforms when launching a cloud GPU, and we hope this guidance will help.</p> <h2 id=prerequisites ><a href="#prerequisites" class=header-anchor >Prerequisites</a></h2> <p>Before starting the tutorial, you&#39;ll need to launch a P-type EC2 instance in AWS. Below are some key resources to help you understand the basics and successfully launch your instance:</p> <ul> <li><p><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">What is Amazon EC2?</a> – Learn the core concepts of Amazon EC2.</p> <li><p><a href="https://aws.amazon.com/ec2/instance-types/">Which type of EC2 should I use?</a> – Discover the best EC2 instance types for your workload.</p> <li><p><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html">How to launch Amazon EC2?</a> – Step-by-step guide on launching your first EC2 instance.</p> <li><p><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html">What is a Spot Instance?</a> <em>&#40;optional&#41;</em> – Learn about spot instances for cost savings.</p> <li><p><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html">How to work with Spot Instances?</a> <em>&#40;optional&#41;</em> – Guide on using spot instances effectively.</p> </ul> <p>If cost is not a concern, you can opt for on-demand instances and skip the last two resources. However, in both cases, you&#39;ll need to manually request a quota for P-type instances before launching.</p> <h2 id=connect_to_instance ><a href="#connect_to_instance" class=header-anchor >Connect to Instance</a></h2> <p>Up to this point, we assume you have already launched your EC2 instance. Now, it&#39;s time to connect to your instance using your local terminal or any IDE with SSH extension support.</p> <p>First, move your <code>.pem</code> key pair file to your <code>.ssh</code> folder for better security and convenience:</p> <pre><code class="bash hljs">$ <span class=hljs-built_in >mv</span> ~/Downloads/&lt;your-key-pair-name&gt;.pem ~/.ssh/&lt;your-key-pair-name&gt;.pem</code></pre>
+<p>To prevent any permission issues when connecting, set the appropriate permissions on the key pair file:</p>
+<pre><code class="Bash hljs">$ <span class=hljs-built_in >chmod</span> 600 ~/.ssh/&lt;your-key-pair-name&gt;.pem</code></pre>
+<p>Copy the public IPv4 DNS of your instance from the AWS console, then connect using the SSH command below:</p>
+<pre><code class="Bash hljs">$ ssh -i ~/.ssh/&lt;your-key-pair-name&gt;.pem ubuntu@&lt;your-ec2-public-ipv4-dns&gt;</code></pre>
+<p>When prompted with the message <code>Are you sure you want to continue connecting &#40;yes/no&#41;?</code>, type <code>yes</code> to proceed. After confirming, you should successfully connect to your EC2 instance.</p>
+<h2 id=configure_cuda_toolkit ><a href="#configure_cuda_toolkit" class=header-anchor >Configure CUDA Toolkit</a></h2>
+<p>You can then proceed to download and configure the appropriate version of the CUDA Toolkit for your platform. Visit <a href="https://developer.nvidia.com/cuda-downloads">NVIDIA CUDA Downloads</a> to find the specific commands for your platform.</p>
+<p>Once the installation is complete, verify that the CUDA Toolkit is properly installed by running the following command:</p>
+<pre><code class="bash hljs">$ nvcc --version</code></pre>
+<p>This will confirm the installed CUDA version.</p>
+<h2 id=configure_julia_package ><a href="#configure_julia_package" class=header-anchor >Configure Julia Package</a></h2>
+<p>To install Julia, first visit <a href="https://julialang.org/downloads/">Julia Downloads</a> and select the version you need. For this example, we will use Julia version 1.10.0 for Linux on x86 64-bit.</p>
+<p>Copy the download link for the selected Julia version and use the following command to download it to your instance:</p>
+<pre><code class="bash hljs">$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.0-linux-x86_64.tar.gz</code></pre>
+<p>Once downloaded, extract the contents of the package:</p>
+<pre><code class="bash hljs">$ tar -xvf julia-1.10.0-linux-x86_64.tar.gz</code></pre>
+<p>To make Julia easily accessible from anywhere, create a symbolic link to the Julia binary:</p>
+<pre><code class="bash hljs">$ <span class=hljs-built_in >sudo</span> <span class=hljs-built_in >ln</span> -s ~/julia-1.10.0/bin/julia /usr/local/bin/julia</code></pre>
+<p>You can delete the original <code>.tar.gz</code> file to save space if needed:</p>
+<pre><code class="bash hljs">$ <span class=hljs-built_in >rm</span> julia-1.10.0-linux-x86_64.tar.gz</code></pre>
+<p>Finally, run the following command to ensure Julia is installed and accessible:</p>
+<pre><code class="bash hljs">$ julia</code></pre>
+<h2 id=add_the_cudajl_to_julia ><a href="#add_the_cudajl_to_julia" class=header-anchor >Add the CUDA.jl to Julia</a></h2>
+<p>In this step, we will add the CUDA package &#40;i.e., <a href="https://cuda.juliagpu.org/stable/">CUDA.jl</a>&#41; to Julia for GPU programming. Before proceeding, ensure that you are already connected to your instance.</p>
+<p>Enter the Julia REPL by typing <code>julia</code> in the terminal. Once inside, add the CUDA.jl using the following commands:</p>
+<pre><code class="julia hljs">julia&gt; <span class=hljs-keyword >using</span> Pkg
+julia&gt; Pkg.add(<span class=hljs-string >&quot;CUDA&quot;</span>)</code></pre>
+<p>To ensure that CUDA.jl is installed and working correctly, run the following commands in the Julia REPL:</p>
+<pre><code class="julia hljs">julia&gt; <span class=hljs-keyword >using</span> CUDA
+julia&gt; CUDA.versioninfo()</code></pre>
+<p>If the version information is displayed without any errors, you&#39;ve successfully added CUDA.jl to Julia, and it is ready for use.</p>
+<h2 id=enable_ssh_with_git_repository_optional ><a href="#enable_ssh_with_git_repository_optional" class=header-anchor >Enable SSH with Git Repository &#40;Optional&#41;</a></h2>
+<p>This step is optional but recommended if you plan to operate a Git repository on your EC2 instance.</p>
+<p>In your local terminal, generate an SSH key with the following command:</p>
+<pre><code class="bash hljs">$ ssh-keygen -t rsa -b 4096 -C <span class=hljs-string >&quot;&lt;your-email-address&gt;&quot;</span></code></pre>
+<p>Save the key to the default directory &#40;<code>~/.ssh</code>&#41; and choose a passphrase for added security. Remember to change  the permissions of your SSH private key to ensure it&#39;s secure:</p>
+<pre><code class="bash hljs">$ <span class=hljs-built_in >chmod</span> 600 ~/.ssh/id_rsa</code></pre>
+<p>Add the private key to the SSH agent to allow SSH connections:</p>
+<pre><code class="bash hljs">$ ssh-add -k ~/.ssh/id_rsa</code></pre>
+<p>Copy the public SSH key from your machine and add it to your GitHub account:</p>
+<pre><code class="bash hljs">$ <span class=hljs-built_in >cat</span> ~/.ssh/id_rsa.pub</code></pre>
+<p>Follow <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">GitHub&#39;s guide</a> to create a new SSH key in GitHub using the output and then transfer your public key to the <code>authorized_keys</code> file on your EC2 instance:</p>
+<pre><code class="bash hljs">$ <span class=hljs-built_in >cat</span> ~/.ssh/id_rsa.pub | ssh -i ~/.ssh/&lt;your-key-pair-name&gt;.pem ubuntu@&lt;your-ec2-public-ipv4-dns&gt; <span class=hljs-string >&quot;mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt; ~/.ssh/authorized_keys&quot;</span></code></pre>
+<p>Finally, copy your private SSH key to your EC2 instance for Git operations:</p>
+<pre><code class="bash hljs">$ scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/&lt;your-key-pair-name&gt;.pem ~/.ssh/id_rsa ubuntu@&lt;your-ec2-public-ipv4-dns&gt;:~/.ssh/</code></pre>
+<p>You can now perform Git operations, such as <code>git clone</code> and <code>git push</code>, directly from your EC2 instance.</p>
+<h2 id=end ><a href="#end" class=header-anchor >End</a></h2>
+<p>After going through the previous steps, you can use CUDA.jl on your cloud GPU through AWS. Please remember to stop your instance when you&#39;re not using it and terminate it when you no longer need it, as both of them will incur extra charges.</p>
+<div class=page-foot >
+    <p>
+        &copy; <a href="https://github.com/trixi-gpu" target=_blank >Trixi-GPU</a> developers. Powered by
+        <a href="https://github.com/tlienart/Franklin.jl" target=_blank >Franklin.jl</a>
+        and the <a href="https://julialang.org" target=_blank >Julia programming language</a>.
+    </p>
+</div></div>
+    
+    
+        <script src="/libs/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();hljs.configure({tabReplace: '    '});</script>
