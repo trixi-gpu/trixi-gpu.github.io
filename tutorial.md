@@ -12,13 +12,15 @@ description = "Hands-on tutorials for Trixi-GPU"
 
 ## Prepare GPUs on Cloud
 
-Some people may not have direct access to a personal or privately owned GPU. This tutorial is designed to help you set up a GPU in the cloud. It's perfect for those without access to a physical GPU or anyone interested in easily trying different types of GPUs. There are many cloud platforms to choose from, such as AWS, GCP, and Azure. This tutorial focuses on using AWS Cloud for running CUDA.jl.
+Not everyone has access to a personal or privately owned GPU. This tutorial is designed to help you set up a GPU in the cloud. It is perfect for those without access to a physical GPU or anyone interested in easily trying different types of GPUs. There are many cloud platforms to choose from, such as AWS, GCP, and Azure, each of which is worth trying. AWS Cloud is used as an example in this tutorial.
 
 [Setup a Cloud GPU for Running CUDA.jl](./cloud_gpu/)
 
-## About Kernel Profiling
+## About Profiling
 
-Kernel profilig is the most direct way to let developer/user to know the inner issues when perforamce are not ideal, for example, the cache hit and data transfer.
+Both Nsight Systems and Nsight Compute are powerful tools for profiling. Nsight Systems excels at providing a high-level overview of system-wide performance, helping developers analyze application behavior and detect bottlenecks across CPU, GPU, and I/O. On the other hand, Nsight Compute is more focused on in-depth kernel analysis, offering detailed metrics like cache utilization, memory bandwidth, and warp execution efficiency. 
 
-[Profiling CUDA kernel using Nsight Compute](./nsys_profiling/)
+[System-wide Profiling using NVIDIA Nsight Systems](./nsys_profiling/) - *Currently unavailable due to the [NVTX issue on Windows](https://github.com/NVIDIA/NVTX/issues/107#issuecomment-2520453798), please wait for an update*\\
+
+[Profiling kernels using NVIDIA Nsight Compute](./ncu_profiling/)
 

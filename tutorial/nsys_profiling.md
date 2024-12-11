@@ -1,4 +1,4 @@
-# Profile Kernels with Nvidia Night Systems
+# System-wide Profiling using NVIDIA Nsight Systems
 
 Welcome again! This tutorial aims to provide instructions on how to profile CUDA kernels using Nvidia Nsight Systems. The instructions are given based on a cloud Unix system and the VS Code platform (optional).
 
