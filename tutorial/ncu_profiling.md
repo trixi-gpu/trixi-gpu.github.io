@@ -50,7 +50,7 @@ You will find the REPL comes to life again, and we are ready to profile our kern
 
 You can try with some simple examples. First, you can try to run some commands directly through REPL:
 ```julia
-julia> a = CUDA.rand(1024,1024,1024)
+julia> a = CUDA.rand(1024, 1024, 1024)
 julia> sin.(a)
 ```
 Then, you will see profiling statistics appear in the Nsight Compute GUI. You can also try with some custom kernels written in the Julia script. For example,

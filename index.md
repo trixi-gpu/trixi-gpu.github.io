@@ -52,8 +52,9 @@ The overall GPU acceleration relies on two parts: (1) ODE acceleration using sta
 
 Semidiscretization is a key part of acceleration due to its potential for full parallelization and the weak data dependencies between some functionalities. Thus, running it on the GPU with pipelined streams is an effective approach to achieving high speedup. But some data dependencies force certain functionalities to remain sequential, making it hard to achieve more intensive pipelining.
 
-## New section
+## News
 
+There is a new project that likely involves the parallelization of mesh initialization for solving PDEs using CUDA.jl (or other available GPU packages in Julia) for the upcoming [Google Summer of Code 2025](https://summerofcode.withgoogle.com/).
 
 ## Acknowledgments
 
