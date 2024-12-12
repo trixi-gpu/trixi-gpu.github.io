@@ -1,6 +1,6 @@
-# Profile Kernels with Nvidia Night Systems
+# System-wide Profiling using NVIDIA Nsight Systems
 
-Welcome again! This tutorial aims to provide instructions on how to profile CUDA kernels using Nvidia Nsight Systems. The instructions are given based on a cloud Unix system and the VS Code platform (optional).
+This tutorial aims to provide instructions on how to profile CUDA kernels using Nvidia Nsight Systems. The instructions are given based on a cloud Unix system and the VS Code platform (optional).
 
 Basically, you can accurately measure execution time by:
 
@@ -9,6 +9,12 @@ Basically, you can accurately measure execution time by:
 2. `BenchmarkTools.@benchmark`(often used together with `CUDA.@sync` or `CUDA.synchronize()`), a robust measurement tool.
 
 For large applications, simple time measurement is not enough. Here, we introduce Nvidia Nsight Systems for profiling CUDA kernels. This method can provide an overview of how and when the GPU was active, thereby helping identify which kernels need optimization.
+
+## Prerequisite
+
+Make sure to download the version of NVIDIA Nsight Systems that is compatible with your OS, hardware (i.e., both CPU and GPU), and software (i.e., CUDA).
+
+- [NVIDIA Nsight Systems - Get Started](https://developer.nvidia.com/nsight-systems/get-started) 
 
 ## Create Profile
 
@@ -75,10 +81,7 @@ For the `.sqlite` file, you can download the 'SQLite' extension. Open the Comman
 
 For the `.csv` file, you can download the 'CSV to Table' extension. Open the Command Palette and enter `Convert to table from CSV`. Then, you can view the CSV file in table format.
 
-## References
+## References  
 
-Profiling GPU code in CUDA.jl.
-https://cuda.juliagpu.org/stable/development/profiling/
-
-NVIDIA Nsight Systems user guide.
-https://docs.nvidia.com/nsight-systems/UserGuide/index.html
+- [Profiling GPU Code in CUDA.jl](https://cuda.juliagpu.org/stable/development/profiling/)  
+- [NVIDIA Nsight Systems - Documentation Archives](https://docs.nvidia.com/nsight-systems/Archives/index.html)  

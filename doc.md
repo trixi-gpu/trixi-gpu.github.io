@@ -14,9 +14,9 @@ description = "Archived documentation for Trixi-GPU"
 
 #### *Aug 5, 2024*
 
-After one year of development, the original project repository has been refactored into a dependent package named [TrixiCUDA.jl](https://github.com/trixi-gpu/TrixiCUDA.jl), primarily aimed at providing CUDA support for Trixi.jl. GPU-related tests are now conducted locally due to constrained resources, and it will enable remote GPU CI testing using [JuliaGPU Buildkite](https://github.com/JuliaGPU/buildkite). The package is currently under active development and testing. 
+The original project repository has been refactored into a dependent package named [TrixiCUDA.jl](https://github.com/trixi-gpu/TrixiCUDA.jl), primarily aimed at providing CUDA support for Trixi.jl. GPU-related tests are now conducted locally due to constrained resources, and it will enable remote GPU CI testing using [JuliaGPU Buildkite](https://github.com/JuliaGPU/buildkite). The package is currently under active development and testing. 
 
-Update: Development is currently on hold due to an incompatibility issue between the new CUDA.jl and Trixi.jl. The fix is in progress.
+Update: Development on Julia v1.11 is currently on hold due to an [incompatibility issue](https://github.com/trixi-framework/Trixi.jl/issues/2108) between the new CUDA.jl and Trixi.jl. The fix is in progress.
 
 #### *May 15, 2024*
 
