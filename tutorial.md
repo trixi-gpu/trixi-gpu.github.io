@@ -20,7 +20,7 @@ Not everyone has access to a personal or privately owned GPU. This tutorial is d
 
 Both Nsight Systems and Nsight Compute are powerful tools for profiling. Nsight Systems excels at providing a high-level overview of system-wide performance, helping developers analyze application behavior and detect bottlenecks across CPU, GPU, and I/O. On the other hand, Nsight Compute is more focused on in-depth kernel analysis, offering detailed metrics like cache utilization, memory bandwidth, and warp execution efficiency. 
 
-[System-wide Profiling using NVIDIA Nsight Systems](./nsys_profiling/) - *Currently unavailable due to the [NVTX issue on Windows](https://github.com/NVIDIA/NVTX/issues/107#issuecomment-2520453798), please wait for an update*\\
+[System-wide Profiling using NVIDIA Nsight Systems](./nsys_profiling/) - *Currently outdated due to the [NVTX issue on Windows](https://github.com/NVIDIA/NVTX/issues/107#issuecomment-2520453798), please wait for an update*\\
 
 [Profiling kernels using NVIDIA Nsight Compute](./ncu_profiling/)
 

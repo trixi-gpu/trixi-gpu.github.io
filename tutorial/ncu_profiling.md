@@ -4,7 +4,7 @@ This tutorial provides instructions on profiling CUDA kernels written in Julia u
 
 ## Prerequisite
 
-Make sure to download the version of NVIDIA Nsight Compute that is compatible with your current NVIDIA driver.
+Make sure to download the version of NVIDIA Nsight Compute that is compatible with your NVIDIA driver.
 
 - [NVIDIA Nsight Compute - Get Started](https://developer.nvidia.com/tools-overview/nsight-compute/get-started) 
 
@@ -25,19 +25,35 @@ In the command palette, search for `Julia: Connect external REPL` and select it.
 
 Now we are ready to attach the externel profiler (i.e., Nsight Compute) to the existing Julia process.
 
-In the Nsight Compute GUI, select `Connection > Start Activity` and a new small windows will show up. Select
+First, enter the following command into the REPL we launched earlier:
+```julia
+julia> using CUDA
+```
+As soon as you use CUDA.jl, your Julia process will hang. 
 
+Then, open the Nsight Compute GUI, select `Connection > Start Activity`, and a new window will appear. Choose `Attach`, select your `julia.exe` under the `Target Platform` section, select `Interactive Profile` under the `Activity` section, and then click the `Attach` button.
+
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/ncu.png">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+
+You will now successfully attach the profiler to the Julia process. Next, check `Profile > Auto Profile` to enable the profiler to automatically profile kernels and uncheck `Debug > Break On API Error` to prevent halting the process due to innocuous errors. Then click `Debug > Resume` to resume your application.
+
+You will find the REPL comes to life again, and we are ready to profile our kernels.
 
 ## Start GPU Kernel Profiling
 
-Assume you have a example.jl file that contains CUDA kerenls you may would like to profliing.
+You can try with some simple examples. First, you can try to run some commands directly through REPL.
+
+Assume you have a test.jl file that contains CUDA kerenls you may would like to profliing.
 
 
-## References
+## References  
 
-Profiling GPU code in CUDA.jl.
-https://cuda.juliagpu.org/stable/development/profiling/
-
-NVIDIA Nsight Systems user guide.
-https://docs.nvidia.com/nsight-systems/UserGuide/index.html
-
+- [Profiling GPU Code in CUDA.jl](https://cuda.juliagpu.org/stable/development/profiling/)  
+- [NVIDIA Nsight Compute - Release History](https://developer.nvidia.com/nsight-compute-history)  
