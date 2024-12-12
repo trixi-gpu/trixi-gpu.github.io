@@ -1,0 +1,60 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/libs/highlight/styles/github.min.css"> <link rel=stylesheet  href="/css/franklin.css"> <link rel=stylesheet  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic|Source+Code+Pro:400,700" type="text/css"> <link rel=stylesheet  href="/css/font-awesome.min.css"> <link rel=stylesheet  href="/css/celeste.min.css"> <link rel=icon  type="image/png" sizes=192x192  href="/assets/favicon.png"> <link rel="shortcut icon" href="/assets/favicon.ico"> <link rel=apple-touch-icon-precomposed  sizes=152x152  href="/assets/apple-touch-icon.png"> <title>Profile Kernels using NVIDIA Nsight Compute</title> <header> <nav class=nav-main > <ul> <a class=hvr-underline-reveal  href="/" style="margin-top: 15px; margin-right: 15px"> <img src="/assets/favicon.png" alt=Logo  style="height: 45px; width: 45px"> </a> <li class=hvr-underline-reveal ><a href="/">Home</a> <li class=hvr-underline-reveal ><a href="/doc/">Doc</a> <li class=hvr-underline-reveal ><a href="/tutorial/">Tutorial</a> <li class=hvr-underline-reveal ><a href="/blog/">Blog</a> </ul> </nav> </header> <div class=franklin-content ><h1 id=profile_kernels_using_nvidia_nsight_compute ><a href="#profile_kernels_using_nvidia_nsight_compute" class=header-anchor >Profile Kernels using NVIDIA Nsight Compute</a></h1> <p>This tutorial provides instructions on profiling CUDA kernels written in Julia using NVIDIA Nsight Compute. The instructions are based on a local Windows system &#40;and similarly apply to Linux and macOS, including both remote and local systems&#41; and use the VS Code platform.</p> <h2 id=prerequisite ><a href="#prerequisite" class=header-anchor >Prerequisite</a></h2> <p>Make sure to download the version of NVIDIA Nsight Compute that is compatible with your NVIDIA driver.</p> <ul> <li><p><a href="https://developer.nvidia.com/tools-overview/nsight-compute/get-started">NVIDIA Nsight Compute - Get Started</a> </p> </ul> <h2 id=connect_to_externel_julia_repl ><a href="#connect_to_externel_julia_repl" class=header-anchor >Connect to Externel Julia REPL</a></h2> <p>First, we start by launching a Julia session under the Nsight Compute CLI using the following command:</p> <pre><code class="bash hljs">&gt; ncu --mode=launch julia</code></pre>
+<p>Then, we will enter a Julia REPL showing that it is waiting for a profiler to attach. To better support kernel optimization, we recommend connecting this REPL to your current development IDE. Please note that this Julia REPL &#40;i.e., the terminal, which is commonly referred to as such in IDE platforms&#41; is considered an external REPL with respect to the IDE.</p>
+<p>We are now taking the VS Code as our example. </p>
+<p>In the command palette, search for <code>Julia: Connect external REPL</code> and select it. This will automatically copy some lines of code to your clipboard. Execute these lines in the external REPL we have already launched, and the connection to the external REPL will be successful.</p>
+<h2 id=attach_profiler_to_julia_process ><a href="#attach_profiler_to_julia_process" class=header-anchor >Attach Profiler to Julia Process</a></h2>
+<p>Now we are ready to attach the externel profiler &#40;i.e., Nsight Compute&#41; to the existing Julia process.</p>
+<p>First, enter the following command into the REPL we launched earlier:</p>
+<pre><code class="julia hljs">julia&gt; <span class=hljs-keyword >using</span> CUDA</code></pre>
+<p>As soon as you use CUDA.jl, your Julia process will hang. </p>
+<p>Then, open the Nsight Compute GUI, select <code>Connection &gt; Start Activity</code>, and a new window will appear. Choose <code>Attach</code>, select your <code>julia.exe</code> under the <code>Target Platform</code> section, select <code>Interactive Profile</code> under the <code>Activity</code> section, and then click the <code>Attach</code> button.</p>
+
+<div class=row >
+  <div class=container >
+    <img class=left  src="/assets/ncu.png">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+
+<p>You will now successfully attach the profiler to the Julia process. Next, check <code>Profile &gt; Auto Profile</code> to enable the profiler to automatically profile kernels and uncheck <code>Debug &gt; Break On API Error</code> to prevent halting the process due to innocuous errors. Then click <code>Debug &gt; Resume</code> to resume your application.</p>
+<p>You will find the REPL comes to life again, and we are ready to profile our kernels.</p>
+<h2 id=start_gpu_kernel_profiling ><a href="#start_gpu_kernel_profiling" class=header-anchor >Start GPU Kernel Profiling</a></h2>
+<p>You can try with some simple examples. First, you can try to run some commands directly through REPL:</p>
+<pre><code class="julia hljs">julia&gt; a = CUDA.rand(<span class=hljs-number >1024</span>, <span class=hljs-number >1024</span>, <span class=hljs-number >1024</span>)
+julia&gt; sin.(a)</code></pre>
+<p>Then, you will see profiling statistics appear in the Nsight Compute GUI. You can also try with some custom kernels written in the Julia script. For example,</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >function</span> vector_add_kernel!(C, A, B, n)
+    idx = (blockIdx().x - <span class=hljs-number >1</span>) * blockDim().x + threadIdx().x
+
+    <span class=hljs-keyword >if</span> idx &lt;= n
+        <span class=hljs-meta >@inbounds</span> C[idx] = A[idx] + B[idx]
+    <span class=hljs-keyword >end</span>
+<span class=hljs-keyword >end</span></code></pre>
+<p>Nsight Compute is a powerful tool with a large number of features for kernel optimization. For more information on how to utilize Nsight Compute, please refer to the official documentation in the references.</p>
+<h2 id=profiling_in_package_development_optional ><a href="#profiling_in_package_development_optional" class=header-anchor >Profiling in Package Development &#40;Optional&#41;</a></h2>
+<p>This section is optional for users but strongly recommended for developers. When developing a Julia package, the code is precompiled before running the kernels, which generates child Julia processes, each making its first call to the CUDA API.</p>
+<p>Take TrixiCUDA.jl as an example. First, we need to precompile the package:</p>
+<pre><code class="julia hljs">(TrixiCUDA) pkg&gt; precompile</code></pre>
+<p>Then the process will hang &#40;and may hang multiple times&#41;. As described in the <a href="#attach_profiler_to_julia_process">Attach Profiler to Julia Process</a> section, this time we need to attach each Julia process to the profiler and resume the application for each one to ensure the precompilation process continues.</p>
+<p>After precompilation, we can use TrixiCUDA.jl directly in our Julia script without any errors. Note that the first time you use TrixiCUDA.jl in the Julia session:</p>
+<pre><code class="julia hljs">julia&gt; <span class=hljs-keyword >using</span> TrixiCUDA</code></pre>
+<p>the REPL will hang again. To proceed, repeat the attach and resume workflow.</p>
+<p>Here, we also provide a sample Julia script for developers to profile kernels in the semidiscretization process in TrixiCUDA.jl. See <a href="/assets/scripts/profiling.jl">profiling.jl</a> - it is outdated, please wait for an update.</p>
+<h2 id=references ><a href="#references" class=header-anchor >References  </a></h2>
+<ul>
+<li><p><a href="https://cuda.juliagpu.org/stable/development/profiling/">Profiling GPU Code in CUDA.jl</a>  </p>
+
+<li><p><a href="https://developer.nvidia.com/nsight-compute-history">NVIDIA Nsight Compute - Release History</a>  </p>
+
+</ul>
+<div class=page-foot >
+    <p>
+        &copy; <a href="https://github.com/trixi-gpu" target=_blank >Trixi-GPU</a> developers. Powered by
+        <a href="https://github.com/tlienart/Franklin.jl" target=_blank >Franklin.jl</a>
+        and the <a href="https://julialang.org" target=_blank >Julia programming language</a>.
+    </p>
+</div></div>
+    
+    
+        <script src="/libs/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();hljs.configure({tabReplace: '    '});</script>
