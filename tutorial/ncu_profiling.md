@@ -8,7 +8,7 @@ Make sure to download the version of NVIDIA Nsight Compute that is compatible wi
 
 - [NVIDIA Nsight Compute - Get Started](https://developer.nvidia.com/tools-overview/nsight-compute/get-started) 
 
-## Connect Externel Julia REPL
+## Connect to Externel Julia REPL
 
 First, we start by launching a Julia session under the Nsight Compute CLI using the following command:
 ```bash
@@ -48,9 +48,42 @@ You will find the REPL comes to life again, and we are ready to profile our kern
 
 ## Start GPU Kernel Profiling
 
-You can try with some simple examples. First, you can try to run some commands directly through REPL.
+You can try with some simple examples. First, you can try to run some commands directly through REPL:
+```julia
+julia> a = CUDA.rand(1024,1024,1024)
+julia> sin.(a)
+```
+Then, you will see profiling statistics appear in the Nsight Compute GUI. You can also try with some custom kernels written in the Julia script. For example,
+```julia
+function vector_add_kernel!(C, A, B, n)
+    idx = (blockIdx().x - 1) * blockDim().x + threadIdx().x
 
-Assume you have a test.jl file that contains CUDA kerenls you may would like to profliing.
+    if idx <= n
+        @inbounds C[idx] = A[idx] + B[idx]
+    end
+end
+```
+Nsight Compute is a powerful tool with a large number of features for kernel optimization. For more information on how to utilize Nsight Compute, please refer to the official documentation in the references.
+
+## Profiling in Package Development (Optional)
+
+This section is optional for users but strongly recommended for developers. When developing a Julia package, the code is precompiled before running the kernels, which generates child Julia processes, each making its first call to the CUDA API.
+
+Take TrixiCUDA.jl as an example. First, we need to precompile the package:
+```julia
+(TrixiCUDA) pkg> precompile
+```
+Then the process will hang (and may hang multiple times). As described in the [Attach Profiler to Julia Process](#attach_profiler_to_julia_process) section, this time we need to attach each Julia process to the profiler and resume the application for each one to ensure the precompilation process continues.
+
+After precompilation, we can use TrixiCUDA.jl directly in our Julia script without any errors. Note that the first time you use TrixiCUDA.jl in the Julia session:
+
+```julia
+julia> using TrixiCUDA
+```
+
+the REPL will hang again. To proceed, repeat the attach and resume workflow.
+
+Here, we also provide a sample Julia script for developers to profile kernels in the semidiscretization process in TrixiCUDA.jl. See [profiling.jl](/assets/scripts/profiling.jl) - it is outdated, please wait for an update.
 
 
 ## References  
