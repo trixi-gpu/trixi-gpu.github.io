@@ -7,9 +7,29 @@
 
 ## About Trixi-GPU
 
-Trixi-GPU offers GPU acceleration for solving hyperbolic PDEs. The core solvers are based on the [Trixi-Framework](https://trixi-framework.github.io/), with its acceleration powered by [JuliaGPU](https://juliagpu.org/). Currently, NVIDIA CUDA serves as our primary but experimental GPU acceleration support, and other types of GPU support will be implemented in the future.
+Trixi-GPU offers GPU acceleration for solving hyperbolic PDEs. The core solvers are based on the [Trixi-Framework](https://trixi-framework.github.io/), with its acceleration powered by [JuliaGPU](https://juliagpu.org/). Currently, NVIDIA CUDA serves as our primary and experimental GPU acceleration support, and other types of GPU support will be implemented in the future.
 
-[Trixi-GPU on GitHub](https://github.com/trixi-gpu)
+## TrixiCUDA.jl
+
+TrixiCUDA.jl offers CUDA acceleration for solving hyperbolic PDEs on GPUs. It is our top-priority solution for achieving high acceleration in solving PDEs on GPUs.
+
+### Recent Update
+
+*Update on Nov 21, 2024*: 
+- Due to the [issue](https://github.com/trixi-framework/Trixi.jl/issues/2108) from upstream with Trixi.jl and CUDA.jl in Julia v1.11, this package now supports only Julia v1.10. Using or developing this package with Julia v1.11 will result in precompilation errors. To fix this, downgrade to Julia v1.10. If you have any other problems, please file issues [here](https://github.com/trixi-gpu/TrixiCUDA.jl/issues).
+
+*Update on Oct 30, 2024*: 
+- The general documentation is now available at [https://trixi-gpu.github.io](https://trixi-gpu.github.io) (in development).  
+- Documentation specific to this package can be found at [https://trixi-gpu.github.io/TrixiCUDA.jl/dev](https://trixi-gpu.github.io/TrixiCUDA.jl/dev) (in development).
+
+*Update on Oct 11, 2024*:
+
+- Development on Julia v1.11 is currently on hold due to an [incompatibility issue](https://github.com/trixi-framework/Trixi.jl/issues/2108) between the latest version of CUDA.jl and Trixi.jl. The fix is in progress.
+    - Trace the root issue in [Trixi.jl Issue #1789](https://github.com/trixi-framework/Trixi.jl/issues/1789): SciMLBase.jl has dropped support for arrays of `SVector`.
+    - [Trixi.jl PR #2150](https://github.com/trixi-framework/Trixi.jl/pull/2150) is opened to replace arrays of `SVector` using RecursiveArrayTools.jl
+    - It requires updating RecursiveArrayTools.jl, which is compatible with Julia >= v1.10. However, Trixi.jl has some legacy tests relying on Julia v1.8 and v1.9. See more discussions in [Trixi.jl PR #2194](https://github.com/trixi-framework/Trixi.jl/pull/2194). 
+
+[*Archived Update*](/update)
 
 ## Acceleration Overview
 
@@ -54,8 +74,8 @@ Semidiscretization is a key part of acceleration due to its potential for full p
 
 ## News
 
-There is a new project that likely involves the parallelization of mesh initialization for solving PDEs using CUDA.jl (or other available GPU packages in Julia) for the upcoming [Google Summer of Code 2025](https://summerofcode.withgoogle.com/).
+There is a new project that probably involves the parallelization of mesh initialization process in solving PDEs using CUDA.jl (or other available GPU packages in Julia) for the upcoming [Google Summer of Code 2025](https://summerofcode.withgoogle.com/).
 
 ## Acknowledgments
 
-Thanks to our developers, maintainers, and outside contributors for their contributions to our community.
+Thanks to our developers, maintainers, and outside contributors for their contributions to our community. Also, special thanks to Prof. Hendrik Ranocha, Prof. Jesse Chan, and Prof. Michael Schlottke-Lakemper for advising this project.
