@@ -67,7 +67,7 @@ Nsight Compute is a powerful tool with a large number of features for kernel opt
 
 ## Profiling in Package Development (Optional)
 
-This section is optional for users but strongly recommended for developers. When developing a Julia package, the code is precompiled before running the kernels, which generates child Julia processes, each making its first call to the CUDA API.
+This section is optional for users but strongly recommended for developers. When developing a Julia package, the code is precompiled before running the kernels, which may trigger multiple Julia processes, each making its first call to the CUDA API.
 
 Take TrixiCUDA.jl as an example. First, we need to precompile the package:
 ```julia

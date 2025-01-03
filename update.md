@@ -1,5 +1,12 @@
 ### Archived Update
 
+*Update on Oct 11, 2024*:
+
+- Development on Julia v1.11 is currently on hold due to an [incompatibility issue](https://github.com/trixi-framework/Trixi.jl/issues/2108) between the latest version of CUDA.jl and Trixi.jl. The fix is in progress.
+    - Trace the root issue in [Trixi.jl Issue #1789](https://github.com/trixi-framework/Trixi.jl/issues/1789): SciMLBase.jl has dropped support for arrays of `SVector`.
+    - [Trixi.jl PR #2150](https://github.com/trixi-framework/Trixi.jl/pull/2150) is opened to replace arrays of `SVector` using RecursiveArrayTools.jl
+    - It requires updating RecursiveArrayTools.jl, which is compatible with Julia >= v1.10. However, Trixi.jl has some legacy tests relying on Julia v1.8 and v1.9. See more discussions in [Trixi.jl PR #2194](https://github.com/trixi-framework/Trixi.jl/pull/2194). 
+
 *Update on Sep 16, 2024*:
 - GPU-related tests are run now locally rather than on CI. Once the package is ready to publish, we will set up JuliaGPU CI infrastructure to run tests on a system with a GPU using [JuliaGPU Buildkite](https://github.com/JuliaGPU/buildkite).
 

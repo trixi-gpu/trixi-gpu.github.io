@@ -15,19 +15,15 @@ TrixiCUDA.jl offers CUDA acceleration for solving hyperbolic PDEs on GPUs. It is
 
 ### Recent Update
 
+*Update on Dec 31, 2024*:
+- The initial round of kernel optimization starts with the volume integral kernels (see [TrixiCUDA.jl PR #102](https://github.com/trixi-gpu/TrixiCUDA.jl/pull/102)) and will later extend to all existing kernels used in the semidiscretization process. The primary approach includes improving global memory access patterns, using shared memory, and selecting appropriate launch sizes to reduce warp stalls and achieve better occupancy.
+
 *Update on Nov 21, 2024*: 
 - Due to the [issue](https://github.com/trixi-framework/Trixi.jl/issues/2108) from upstream with Trixi.jl and CUDA.jl in Julia v1.11, this package now supports only Julia v1.10. Using or developing this package with Julia v1.11 will result in precompilation errors. To fix this, downgrade to Julia v1.10. If you have any other problems, please file issues [here](https://github.com/trixi-gpu/TrixiCUDA.jl/issues).
 
 *Update on Oct 30, 2024*: 
 - The general documentation is now available at [https://trixi-gpu.github.io](https://trixi-gpu.github.io) (in development).  
 - Documentation specific to this package can be found at [https://trixi-gpu.github.io/TrixiCUDA.jl/dev](https://trixi-gpu.github.io/TrixiCUDA.jl/dev) (in development).
-
-*Update on Oct 11, 2024*:
-
-- Development on Julia v1.11 is currently on hold due to an [incompatibility issue](https://github.com/trixi-framework/Trixi.jl/issues/2108) between the latest version of CUDA.jl and Trixi.jl. The fix is in progress.
-    - Trace the root issue in [Trixi.jl Issue #1789](https://github.com/trixi-framework/Trixi.jl/issues/1789): SciMLBase.jl has dropped support for arrays of `SVector`.
-    - [Trixi.jl PR #2150](https://github.com/trixi-framework/Trixi.jl/pull/2150) is opened to replace arrays of `SVector` using RecursiveArrayTools.jl
-    - It requires updating RecursiveArrayTools.jl, which is compatible with Julia >= v1.10. However, Trixi.jl has some legacy tests relying on Julia v1.8 and v1.9. See more discussions in [Trixi.jl PR #2194](https://github.com/trixi-framework/Trixi.jl/pull/2194). 
 
 [*Archived Update*](/update)
 
