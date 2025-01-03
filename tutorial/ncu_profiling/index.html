@@ -32,7 +32,7 @@ julia&gt; sin.(a)</code></pre>
 <span class=hljs-keyword >end</span></code></pre>
 <p>Nsight Compute is a powerful tool with a large number of features for kernel optimization. For more information on how to utilize Nsight Compute, please refer to the official documentation in the references.</p>
 <h2 id=profiling_in_package_development_optional ><a href="#profiling_in_package_development_optional" class=header-anchor >Profiling in Package Development &#40;Optional&#41;</a></h2>
-<p>This section is optional for users but strongly recommended for developers. When developing a Julia package, the code is precompiled before running the kernels, which generates child Julia processes, each making its first call to the CUDA API.</p>
+<p>This section is optional for users but strongly recommended for developers. When developing a Julia package, the code is precompiled before running the kernels, which may trigger multiple Julia processes, each making its first call to the CUDA API.</p>
 <p>Take TrixiCUDA.jl as an example. First, we need to precompile the package:</p>
 <pre><code class="julia hljs">(TrixiCUDA) pkg&gt; precompile</code></pre>
 <p>Then the process will hang &#40;and may hang multiple times&#41;. As described in the <a href="#attach_profiler_to_julia_process">Attach Profiler to Julia Process</a> section, this time we need to attach each Julia process to the profiler and resume the application for each one to ensure the precompilation process continues.</p>
