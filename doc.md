@@ -23,13 +23,13 @@ description = "Archived documentation for Trixi-GPU"
 
 ## Google Summer of Code 2023
 
-**GPU Acceleration for PDE Discretization in Trixi.jl Using CUDA.jl (GSoC Report)**  \
+**GPU Acceleration for PDE Discretization in Trixi.jl using CUDA.jl (GSoC Report)**  \
 *August 31, 2023*  \
 [Web - Project on GSoC](https://summerofcode.withgoogle.com/programs/2023/projects/upstR7K2)  \
 [Web - Report on Trixi](https://trixi-framework.github.io/outreach/gsoc/2023/gpu-acceleration-in-trixi-jl-using-cuda-jl/)  \
 [GitHub Repository - TrixiCUDA.jl](https://github.com/huiyuxie/trixi_cuda)
 
-**GPU Acceleration for PDE Discretization in Trixi.jl Using CUDA.jl (GSoC Proposal)**  \
+**GPU Acceleration for PDE Discretization in Trixi.jl using CUDA.jl (GSoC Proposal)**  \
 *April 3, 2023* \
 [PDF - GSoC Proposal](/assets/files/proposal.pdf)
 
