@@ -10,6 +10,8 @@ description = "Archived documentation for Trixi-GPU"
 
 \toc
 
+## JuliaCon 2025
+
 ## Supplementary Docs
 
 **Rounding Error Analysis in Weak Form Kernel for 1D Equation on GPU** \
