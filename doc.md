@@ -10,6 +10,13 @@ description = "Archived documentation for Trixi-GPU"
 
 \toc
 
+## JuliaCon 2025 - Upcoming
+
+**TrixiCUDA.jl: CUDA Support for Solving Hyperbolic PDEs on GPUs (Draft Version)** \
+*Jan 8, 2025* \
+[Slides - JuliaCon Presentation](/assets/files/juliacon25.pdf) \
+
+
 ## Supplementary Docs
 
 **Rounding Error Analysis in Weak Form Kernel for 1D Equation on GPU** \
