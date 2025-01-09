@@ -53,7 +53,7 @@ Minimizing large and frequent data transfers between the CPU and GPU is crucial 
 </div>
 ~~~
 
-The overall GPU acceleration relies on two parts: (1) ODE acceleration using standard kernels from the package, and (2) PDE-specific acceleration, focusing on semidiscretization, implemented with custom kernels. With custom kernels, specialized optimizations focused on memory access and algorithms can be applied to achieve further speedup.
+The overall GPU acceleration relies on two parts: (1) ODE acceleration, based on GPU array operations natively accelerated through CUDA.jl, and (2) PDE-specific acceleration, focusing on semidiscretization, implemented with custom kernels. With custom kernels, specialized optimizations focused on things like memory access and algorithms can be applied to achieve further speedup.
 
 ### Smediscretization on GPU
 
