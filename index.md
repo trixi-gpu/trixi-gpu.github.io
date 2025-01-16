@@ -70,7 +70,7 @@ Semidiscretization is a key part of acceleration due to its potential for full p
 
 ## News
 
-There is a new project that probably involves the parallelization of mesh initialization process in solving PDEs using CUDA.jl (or other available GPU packages in Julia) for the upcoming [Google Summer of Code 2025](https://summerofcode.withgoogle.com/).
+There is a [new project](https://julialang.org/jsoc/gsoc/trixi/#adaptive_mesh_refinement_on_gpus_with_cuda_dynamic_parallelism) focused on implementing AMR with CUDA dynamic parallelism for the upcoming [Google Summer of Code 2025](https://summerofcode.withgoogle.com/). Please reach out if you are interested.
 
 ## Acknowledgments
 
