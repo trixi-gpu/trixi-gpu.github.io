@@ -22,7 +22,7 @@ TrixiCUDA.jl offers CUDA acceleration for solving hyperbolic PDEs on GPUs. It is
 - It is recommended to update your Julia version to 1.10.8 (the latest LTS release) to avoid the issue of circular dependencies during package precompilation, which is present in Julia 1.10.7 (see [issue](https://discourse.julialang.org/t/circular-dependency-warning/123388)).
 
 *Update on Dec 31, 2024*:
-- The initial round of kernel optimization starts with the volume integral kernels (see [TrixiCUDA.jl PR #102](https://github.com/trixi-gpu/TrixiCUDA.jl/pull/102)) and will later extend to all existing kernels used in the semidiscretization process. The primary approach includes improving global memory access patterns, using shared memory, and selecting appropriate launch sizes to reduce warp stalls and achieve better occupancy.
+- The initial round of kernel optimization starts with the volume integral kernels (see [TrixiCUDA.jl PR #102](https://github.com/trixi-gpu/TrixiCUDA.jl/pull/102)) and will later extend to all existing kernels used in the semidiscretization process.
 
 [*Archived Update*](/update)
 
