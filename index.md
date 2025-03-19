@@ -16,7 +16,7 @@ TrixiCUDA.jl offers CUDA acceleration for solving hyperbolic PDEs on GPUs. It is
 ### Recent Update
 
 *Update on Mar 19, 2025*:
-- The incompatibility issue has been resolved. The package is now compatible with the latest version of CUDA.jl (v5.7.0) and Trixi.jl v0.10 (including v0.10.0-v0.10.2).
+- The issue between the latest version of CUDA.jl and Trixi.jl has been resolved. The package is now compatible with CUDA.jl v5.7.0 and Trixi.jl v0.10 (see [TrixiCUDA.jl PR #141](https://github.com/trixi-gpu/TrixiCUDA.jl/pull/141)).
 
 *Update on Jan 28, 2025*:
 - It is recommended to update your Julia version to 1.10.8 (the latest LTS release) to avoid the issue of circular dependencies during package precompilation, which is present in Julia 1.10.7 (see [issue](https://discourse.julialang.org/t/circular-dependency-warning/123388)).
