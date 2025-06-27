@@ -12,10 +12,10 @@ description = "Archived documentation for Trixi-GPU"
 
 ## JuliaCon 2025 - Upcoming
 
-**TrixiCUDA.jl: CUDA Support for Solving Hyperbolic PDEs on GPUs (Draft Version)** \
-*Jan 8, 2025* \
+**TrixiCUDA.jl: CUDA Support for Solving Hyperbolic PDEs on GPU** \
+*June 25, 2025* \
 [Slides - JuliaCon Presentation](/assets/files/juliacon25.pdf) \
-
+[Web - Benchmark Results](/benchmark)
 
 ## Supplementary Docs
 
@@ -44,8 +44,3 @@ description = "Archived documentation for Trixi-GPU"
 *April 2, 2023* \
 [PDF - Matrix-Vector Representation](/assets/files/vector_matrix.pdf)  \
 [GitHub Repository - Linear Advection CUDA](https://github.com/huiyuxie/linear_advection_cuda)
-
-## GitHub Links
-
-[Trixi-GPU](https://github.com/trixi-gpu) \
-[TrixiCUDA.jl](https://github.com/trixi-gpu/TrixiCUDA.jl)
