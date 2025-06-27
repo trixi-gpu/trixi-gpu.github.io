@@ -77,8 +77,9 @@ Lower right: Ideal GLM-MHD Alfven wave with mortar method
 ~~~
 
 ## Shallow Water Equations
-Left: Shallow water equations with entropy conservative flux \
-Right: Shallow water equations
+Left: Shallow water equations with entropy conservative flux ([1D](https://github.com/trixi-framework/Trixi.jl/blob/v0.11.17/examples/tree_1d_dgsem/elixir_shallowwater_ec.jl), [2D](https://github.com/trixi-framework/Trixi.jl/blob/v0.11.17/examples/tree_2d_dgsem/elixir_shallowwater_ec.jl)) \
+Right: Shallow water equations with source terms ([1D](https://github.com/trixi-framework/Trixi.jl/blob/v0.11.17/examples/tree_1d_dgsem/elixir_shallowwater_source_terms.jl), [2D](https://github.com/trixi-framework/Trixi.jl/blob/v0.11.17/examples/tree_2d_dgsem/elixir_shallowwater_source_terms.jl))
+
 ~~~
 <table style="background: transparent; border: none;">
   <tr>
