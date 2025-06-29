@@ -2,7 +2,7 @@
 
 > This documentation serves as a supplementary material for JuliaCon 2025. \
 
-See the benchmarking file at [plot.ipynb](https://github.com/trixi-gpu/TrixiCUDA.jl/blob/v0.11.17/benchmark/plot.ipynb), and all results are compared between [TrixiCUDA.jl v0.1.0-rc.2]() and [Trixi.jl v0.11.17](https://github.com/trixi-framework/Trixi.jl/tree/v0.11.17).
+See the benchmarking file at [benchmark.ipynb](https://github.com/trixi-gpu/TrixiCUDA.jl/blob/v0.1.0-rc.2/benchmark/benchmark.ipynb), and all results are compared between [TrixiCUDA.jl v0.1.0-rc.2](https://github.com/trixi-gpu/TrixiCUDA.jl/tree/v0.1.0-rc.2) and [Trixi.jl v0.11.17](https://github.com/trixi-framework/Trixi.jl/tree/v0.11.17).
 
 We provide the link to each example in Trixi.jl as it is a more mature and stable package compared to TrixiCUDA.jl. Note that performance varies with different inputs; these benchmark results are provided for reference only.
 
