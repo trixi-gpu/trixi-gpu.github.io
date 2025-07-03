@@ -4,6 +4,8 @@
 
 See the benchmarking file at [benchmark.ipynb](https://github.com/trixi-gpu/TrixiCUDA.jl/blob/v0.1.0-rc.2/benchmark/benchmark.ipynb), and all results are compared between [TrixiCUDA.jl v0.1.0-rc.2](https://github.com/trixi-gpu/TrixiCUDA.jl/tree/v0.1.0-rc.2) and [Trixi.jl v0.11.17](https://github.com/trixi-framework/Trixi.jl/tree/v0.11.17).
 
+We mainly show the mean and median times on CPU and GPU for each example, and include the degrees of freedom (DOFs) per field (i.e., per independent solution variable) in each plot, since DOFs are a dominant factor (though not the only factor) affecting computational time.
+
 We provide the link to each example in Trixi.jl as it is a more mature and stable package compared to TrixiCUDA.jl. Note that performance varies with different inputs; these benchmark results are provided for reference only.
 
 ## Linear Advection Equation
@@ -94,4 +96,4 @@ Right: Shallow water equations with source terms ([1D](https://github.com/trixi-
 ~~~
 
 ## Takeaway
-For simple cases (for example, if the CPU performance is less than 100 μs), it is not advantageous to run on the GPU, since the overhead of using the GPU outweighs any performance gain. However, for more complex cases (such as when execution time on the CPU exceeds 1,000 μs), running on the GPU can provide significant benefits.
+For simple cases (for example, if the CPU performance is less than 100 μs), it is not advantageous to run on the GPU, since the overhead of using the GPU outweighs any performance gain. However, for more complex cases (such as when execution time on the CPU exceeds 1,000 μs), running on the GPU can provide significant benefits. Also, remember that DOFs are the dominant, but not the sole—factor, affecting computation time.
