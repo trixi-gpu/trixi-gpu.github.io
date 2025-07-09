@@ -12,7 +12,7 @@ We provide the link to each example in Trixi.jl as it is a more mature and stabl
 
 We adopt two approaches here: 
 - First, we maintain a consistent solution resolution per space dimension by fixing both the degree of polynomial basis (i.e., `polydeg`) and mesh refinement level (i.e., `initial_refinement_level`), while varying the problem dimension from 1D to 2D to 3D. In this way, we observe a linear increase in log DOFs with problem dimension.
-- Second, for each problem type, we maintain a constant number of DOFs across 1D, 2D, and 3D by changing the polynomial degree (i.e., `polydeg`) and mesh refinement level (i.e., `initial_refinement_level`). This way produces an roughly flat log DOFs curve across all dimensions.
+- Second, for each problem type, we keep the number of DOFs roughly constant across 1D, 2D, and 3D by changing the polynomial degree (i.e., `polydeg`) and mesh refinement level (i.e., `initial_refinement_level`). This way produces a roughly flat log DOFs curve across all dimensions.
 
 We will present benchmark results for two approaches.
 
@@ -179,6 +179,6 @@ Right: Shallow water equations with source terms ([1D](https://github.com/trixi-
 ~~~
 
 ## Takeaway
-In the first approach, CPU and GPU runtimes both rise as DOFs increase, simply because more unknowns must be solved; while in the second approach, even when the total DOFs are held constant, CPU and GPU runtimes still increase with problem size, since the cost of solving each unknown also grows with the spatial dimension of the problem. 
+In the first approach, CPU and GPU runtimes both rise as DOFs increase, simply because more unknowns must be solved; while in the second approach, even when the total DOFs are held roughly constant, CPU and GPU runtimes still increase with problem size, since the cost of solving each unknown also grows with the spatial dimension of the problem. 
 
 However, in both approaches, we observe that the slope of the runtime on the GPU is smaller than that on the CPU, so the GPU is less sensitive to increases in data size and thus robust in handling large-scale problems. So, we can conclude that the speedup increases with the problem size (including both the number of spatial dimensions and the level of solution resolution).
