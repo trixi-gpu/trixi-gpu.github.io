@@ -2,7 +2,7 @@
 
 > This documentation serves as a supplementary material for JuliaCon 2025. \
 
-See the benchmarking file at [benchmark.ipynb]() (TODO: add link), and all results are compared between [TrixiCUDA.jl v0.1.0-rc.3]() (TODO: add link) and [Trixi.jl v0.11.17](https://github.com/trixi-framework/Trixi.jl/tree/v0.11.17). All the benchmark examples can be found in the [benchmark]() directory (TODO: add link).
+See the benchmarking file at [benchmark.ipynb](https://github.com/trixi-gpu/TrixiCUDA.jl/blob/v0.1.0-rc.3/benchmark/benchmark.ipynb), and all results are compared between [TrixiCUDA.jl v0.1.0-rc.3](https://github.com/trixi-gpu/TrixiCUDA.jl/tree/v0.1.0-rc.3) and [Trixi.jl v0.11.17](https://github.com/trixi-framework/Trixi.jl/tree/v0.11.17). All the benchmark examples can be found in the [benchmark](https://github.com/trixi-gpu/TrixiCUDA.jl/tree/v0.1.0-rc.3/examples) directory.
 
 We mainly show the mean and median times on CPU and GPU for each example, and include the degrees of freedom (DOFs) per field (i.e., per independent solution variable) in each plot, since DOFs are a dominant factor (though not the only factor) affecting computational time.
 
