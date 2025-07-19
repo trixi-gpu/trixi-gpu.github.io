@@ -10,7 +10,7 @@ description = "Archived documentation for Trixi-GPU"
 
 \toc
 
-## JuliaCon 2025 - Upcoming
+## JuliaCon 2025
 
 **TrixiCUDA.jl: CUDA Support for Solving Hyperbolic PDEs on GPU** \
 *June 25, 2025* \
